@@ -1,5 +1,6 @@
 import React from 'react';
 import { gameState, HomeSubScreen } from '../stores/gameState';
+import { AudioControls } from './AudioControls';
 import '../Game.css';
 
 interface HomeScreenProps {
@@ -32,7 +33,7 @@ const SettingsMenu: React.FC = () => (
   <>
     <h1 className="title">Settings</h1>
     <div className="menu-content">
-      <p>Game settings will appear here in future updates.</p>
+      <AudioControls />
     </div>
     <div className="menu-buttons">
       <button className="btn" onClick={() => gameState.setHomeSubScreen('main')}>

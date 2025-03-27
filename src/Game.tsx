@@ -11,7 +11,7 @@ import { initializeGame } from "./utilities/gameInitializer";
 import "./Game.css";
 
 // Debug flag for collision detection
-const DEBUG_COLLISION = true;
+const DEBUG_COLLISION = false;
 
 interface GameProps {
   onPause?: () => void;

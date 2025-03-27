@@ -2,10 +2,7 @@ import { useState, useEffect } from 'react'
 import Game from './Game'
 import { HomeScreen } from './components/HomeScreen'
 import { PauseMenu } from './components/PauseMenu'
-import { resetCamera } from './stores/camera'
-import { resetPlayer } from './stores/player'
-import useMapStore from './stores/map'
-import { state as scoreState } from './stores/score'
+import { AudioManager } from './components/AudioManager'
 import { gameState, GameStateInterface, HomeSubScreen } from './stores/gameState'
 import { initializeGame } from './utilities/gameInitializer'
 import './App.css'
@@ -46,6 +43,9 @@ export default function App() {
 
   return (
     <div className="app-container">
+      {/* Audio manager handles background music across all screens */}
+      <AudioManager />
+      
       {gameStateScreen === 'home' && (
         <HomeScreen 
           onStartGame={startGame} 
