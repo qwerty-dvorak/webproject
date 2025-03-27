@@ -133,7 +133,7 @@ export default function Game({ onPause }: GameProps) {
 
   return (
     <>
-      <h1 className="game-title">Pixel Tanks</h1>
+      <h1 className="game-title">Smash and Dash</h1>
       <div className="game-container">
         <div className="game">
           {onPause && currentScreen === 'playing' && (

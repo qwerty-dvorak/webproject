@@ -48,7 +48,7 @@ const MainMenu: React.FC<{ onStartGame: () => void }> = ({ onStartGame }) => {
   return (
     <>
       <h1 className="title" style={{ color: "orange", fontSize: "60px" }}>
-        Pixel Tanks
+      Smash and Dash
       </h1>
       <div className="menu-buttons">
         <button className="btn" onClick={handleStartClick}>
@@ -281,7 +281,7 @@ const CreditsMenu: React.FC = () => (
     <h1 className="title">Credits</h1>
     <div className="credits-container">
       <div className="credits-header">
-        <p className="credits-game-title">Pixel Tanks</p>
+        <p className="credits-game-title">Smash and Dash</p>
         <p className="credits-tagline">
           A retro-style tank game created with React and Three.js
         </p>
