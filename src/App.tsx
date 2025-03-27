@@ -3,6 +3,7 @@ import Game from './Game'
 import { HomeScreen } from './components/HomeScreen'
 import { PauseMenu } from './components/PauseMenu'
 import { AudioManager } from './components/AudioManager'
+import { SfxManager } from './components/SfxManager'
 import { gameState, GameStateInterface, HomeSubScreen } from './stores/gameState'
 import { initializeGame } from './utilities/gameInitializer'
 import './App.css'
@@ -45,6 +46,9 @@ export default function App() {
     <div className="app-container">
       {/* Audio manager handles background music across all screens */}
       <AudioManager />
+      
+      {/* SFX manager handles sound effects initialization */}
+      <SfxManager />
       
       {gameStateScreen === 'home' && (
         <HomeScreen 

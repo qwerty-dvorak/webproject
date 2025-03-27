@@ -2,6 +2,7 @@ import type { MoveDirection } from "../types";
 import { endsUpInValidPosition } from "../utilities/endsUpInValidPosition";
 import useMapStore from "./map"
 import { state as scoreState } from "./score";
+import { sfxState } from "./sfxState";
 
 // State is exported directly so it persists between component mounts
 export const state: {
@@ -29,6 +30,9 @@ export function queueMove(direction: MoveDirection) {
 
   if (!isValidMove) return;
 
+  // Play jump sound effect
+  sfxState.playSfx('jump');
+  
   state.movesQueue.push(direction);
 }
 

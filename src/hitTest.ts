@@ -3,6 +3,7 @@ import useMapStore from "./stores/map";
 import { state as playerState } from "./stores/player";
 import { minTileIndex, maxTileIndex, tileSize } from "./constants";
 import { gameState } from "./stores/gameState";
+import { sfxState } from "./stores/sfxState";
 
 // Remove DOM elements references since we're using React components now
 let lastCollisionTime = 0;
@@ -241,6 +242,9 @@ export function hitTest(debug = false) {
         // Any significant overlap should count as a collision
         if (overlapX > 5 && overlapY > 5) {
           lastCollisionTime = now;
+
+          // Play hit sound effect
+          sfxState.playSfx('hit');
 
           // Immediately handle the collision
           playerState.movesQueue = [];

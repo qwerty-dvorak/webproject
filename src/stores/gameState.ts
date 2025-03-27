@@ -2,7 +2,7 @@
 export type GameScreenType = 'home' | 'playing' | 'paused' | 'game-over';
 
 // Home screen sub-states
-export type HomeSubScreen = 'main' | 'settings' | 'credits';
+export type HomeSubScreen = 'main' | 'settings' | 'credits' | 'leaderboard';
 
 // Game state interface
 export interface GameStateInterface {

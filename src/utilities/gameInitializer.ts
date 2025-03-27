@@ -2,13 +2,13 @@ import { resetCamera } from "../stores/camera";
 import { initializePlayerPosition } from "../stores/player";
 import useMapStore from "../stores/map";
 import { state as scoreState } from "../stores/score";
-import { gameState } from "../stores/gameState";
+import { gameState, HomeSubScreen } from "../stores/gameState";
 
 /**
  * Initializes the game state completely, resetting player position, camera,
  * map, and score. Also immediately updates the visual position of the player.
  */
-export function initializeGame(setScreen: 'playing' | 'home' = 'playing', homeSubScreen?: string) {
+export function initializeGame(setScreen: 'playing' | 'home' = 'playing', homeSubScreen?: HomeSubScreen) {
   // Reset player with immediate position update
   initializePlayerPosition();
   
@@ -29,6 +29,6 @@ export function initializeGame(setScreen: 'playing' | 'home' = 'playing', homeSu
   
   // Set home sub-screen if going to home and a sub-screen is specified
   if (setScreen === 'home' && homeSubScreen) {
-    gameState.setHomeSubScreen(homeSubScreen as any);
+    gameState.setHomeSubScreen(homeSubScreen);
   }
 } 

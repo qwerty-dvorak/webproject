@@ -5,8 +5,10 @@ import { GameMap } from "./components/GameMap";
 import { Controls } from "./components/Controls";
 import useEventListeners from "./hooks/useEventListeners";
 import { state as scoreState } from "./stores/score";
+import { leaderboardState } from "./stores/leaderboard";
 import { hitTest } from "./hitTest";
 import { gameState } from "./stores/gameState";
+import { sfxState } from "./stores/sfxState";
 import { initializeGame } from "./utilities/gameInitializer";
 import "./Game.css";
 
@@ -30,8 +32,22 @@ export default function Game({ onPause }: GameProps) {
   // Debug display toggle state
   const [showDebugDisplay, setShowDebugDisplay] = useState(true);
   
+  // Track game over state to play sound only once
+  const gameOverSoundPlayed = useRef(false);
+  
+  // Track if leaderboard has been updated for this game over
+  const leaderboardUpdated = useRef(false);
+  
+  // Track if high score has been achieved
+  const [isHighScore, setIsHighScore] = useState(false);
+  
   // Connect event listeners with pause handler
   useEventListeners(onPause);
+
+  // Initialize sound effects
+  useEffect(() => {
+    sfxState.initSfx();
+  }, []);
 
   // Subscribe to score changes
   useEffect(() => {
@@ -48,6 +64,30 @@ export default function Game({ onPause }: GameProps) {
   useEffect(() => {
     const unsubscribe = gameState.subscribe((state) => {
       setCurrentScreen(state.screen);
+      
+      // Update leaderboard when game over
+      if (state.screen === 'game-over' && !leaderboardUpdated.current) {
+        leaderboardUpdated.current = true;
+        
+        // Add score to leaderboard
+        leaderboardState.addScore(scoreState.value);
+        
+        // Check if new high score
+        setIsHighScore(leaderboardState.isNewHighScore);
+        
+        // Play game over sound
+        if (!gameOverSoundPlayed.current) {
+          sfxState.playSfx('gameOver');
+          gameOverSoundPlayed.current = true;
+        }
+      }
+      
+      // Reset the game over and leaderboard flags when not in game over screen
+      if (state.screen !== 'game-over') {
+        gameOverSoundPlayed.current = false;
+        leaderboardUpdated.current = false;
+        setIsHighScore(false);
+      }
     });
     
     return unsubscribe;
@@ -78,10 +118,17 @@ export default function Game({ onPause }: GameProps) {
   // Handle pause - no need to do anything special since state is stored 
   // in persistent stores that survive component unmounting
   const handlePause = () => {
+    sfxState.playSfx('menuSelect');
     if (onPause) {
       // Camera state and player state are already in their respective stores
       onPause();
     }
+  };
+  
+  // Helper to play sound and handle action
+  const playAndAct = (action: () => void) => {
+    sfxState.playSfx('menuSelect');
+    action();
   };
 
   return (
@@ -121,33 +168,28 @@ export default function Game({ onPause }: GameProps) {
           <div id="result-container" className={currentScreen === 'game-over' ? 'visible' : ''}>
             <div id="result">
               <h1>Game Over</h1>
+              {isHighScore && (
+                <div className="highscore-message">NEW HIGHSCORE!</div>
+              )}
               <p>Your score: <span id="final-score">{score}</span></p>
-              <div className="menu-buttons" style={{ flexDirection: 'row', justifyContent: 'center' }}>
+              <div className="menu-buttons">
                 <button 
-                  className="btn" 
-                  style={{ 
-                    padding: '8px 16px',
-                    fontSize: '14px',
-                    margin: '0 8px',
-                    minWidth: 'auto',
-                    width: 'auto'
-                  }}
-                  onClick={() => initializeGame('playing')}
+                  className="btn"
+                  onClick={() => playAndAct(() => initializeGame('playing'))}
                 >
                   Retry
                 </button>
-                <button 
-                  className="btn" 
-                  style={{ 
-                    padding: '8px 16px',
-                    fontSize: '14px',
-                    margin: '0 8px',
-                    minWidth: 'auto',
-                    width: 'auto'
-                  }}
-                  onClick={() => initializeGame('home', 'main')}
+                {/* <button 
+                  className="btn"
+                  onClick={() => playAndAct(() => initializeGame('home', 'leaderboard'))}
                 >
-                  Quit
+                  View Leaderboard
+                </button> */}
+                <button 
+                  className="btn"
+                  onClick={() => playAndAct(() => initializeGame('home', 'main'))}
+                >
+                  Main Menu
                 </button>
               </div>
             </div>
