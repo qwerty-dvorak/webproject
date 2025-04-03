@@ -13,6 +13,8 @@ import {
   themeIds,
 } from "../stores/themeStore";
 import { difficultyStore, DifficultyLevel } from "../stores/difficultyStore";
+// import { GameAssistant } from "./GameAssistant";
+import { WeatherSettings } from "./WeatherSettings";
 
 interface HomeScreenProps {
   onStartGame: () => void;
@@ -48,7 +50,7 @@ const MainMenu: React.FC<{ onStartGame: () => void }> = ({ onStartGame }) => {
   return (
     <>
       <h1 className="title" style={{ color: "orange", fontSize: "60px" }}>
-      Smash and Dash
+        Smash and Dash
       </h1>
       <div className="menu-buttons">
         <button className="btn" onClick={handleStartClick}>
@@ -106,6 +108,11 @@ const SettingsMenu: React.FC = () => {
   const [currentDifficulty, setCurrentDifficulty] = useState<DifficultyLevel>(
     difficultyStore.getDifficulty()
   );
+
+  // Add state for active tab
+  const [activeTab, setActiveTab] = useState<
+    "general" | "weather" 
+  >("general");
 
   useEffect(() => {
     // Update name when leaderboard state changes
@@ -178,89 +185,127 @@ const SettingsMenu: React.FC = () => {
     <>
       <h1 className="title">Settings</h1>
 
-      <div className="settings-container">
-        <div className="settings-column">
-          <h2 className="settings-section-title">Audio Settings</h2>
-          <AudioControls />
-        </div>
+      <div className="settings-tabs">
+        <button
+          className={`settings-tab ${activeTab === "general" ? "active" : ""}`}
+          onClick={() => {
+            sfxState.playSfx("menuSelect");
+            setActiveTab("general");
+          }}
+        >
+          General
+        </button>
+        <button
+          className={`settings-tab ${activeTab === "weather" ? "active" : ""}`}
+          onClick={() => {
+            sfxState.playSfx("menuSelect");
+            setActiveTab("weather");
+          }}
+        >
+          Weather
+        </button>
+        {/* <button
+          className={`settings-tab ${
+            activeTab === "assistant" ? "active" : ""
+          }`}
+          onClick={() => {
+            sfxState.playSfx("menuSelect");
+            setActiveTab("assistant");
+          }}
+        >
+          Game Assistant
+        </button> */}
+      </div>
 
-        <div className="settings-column">
-          <h2 className="settings-section-title">User Settings</h2>
-          <div className="user-settings-section">
-            <div className="user-info-content">
-              <h3 className="audio-section-title">Current Player</h3>
-              {isEditingName ? (
-                <NameInputDialog onSubmit={handleNameChange} />
-              ) : (
-                <div className="username-display">
-                  <div className="player-name">{currentUsername}</div>
+      {activeTab === "general" && (
+        <div className="settings-container">
+          <div className="settings-column">
+            <h2 className="settings-section-title">Audio Settings</h2>
+            <AudioControls />
+          </div>
+
+          <div className="settings-column">
+            <h2 className="settings-section-title">User Settings</h2>
+            <div className="user-settings-section">
+              <div className="user-info-content">
+                <h3 className="audio-section-title">Current Player</h3>
+                {isEditingName ? (
+                  <NameInputDialog onSubmit={handleNameChange} />
+                ) : (
+                  <div className="username-display">
+                    <div className="player-name">{currentUsername}</div>
+                    <button
+                      className="edit-name-btn"
+                      onClick={() => {
+                        sfxState.playSfx("menuSelect");
+                        setIsEditingName(true);
+                      }}
+                    >
+                      Edit
+                    </button>
+                  </div>
+                )}
+              </div>
+              <div className="theme-content">
+                <h3 className="audio-section-title">Visual Style</h3>
+                <div className="track-carousel">
                   <button
-                    className="edit-name-btn"
-                    onClick={() => {
-                      sfxState.playSfx("menuSelect");
-                      setIsEditingName(true);
-                    }}
+                    className="carousel-btn prev-btn"
+                    onClick={() => navigateTheme("prev")}
+                    aria-label="Previous theme"
                   >
-                    Edit
+                    ◀
+                  </button>
+
+                  <div className="current-track">
+                    <div className="track-name">{themeNames[currentTheme]}</div>
+                  </div>
+
+                  <button
+                    className="carousel-btn next-btn"
+                    onClick={() => navigateTheme("next")}
+                    aria-label="Next theme"
+                  >
+                    ▶
                   </button>
                 </div>
-              )}
-            </div>
-            <div className="theme-content">
-              <h3 className="audio-section-title">Visual Style</h3>
-              <div className="track-carousel">
-                <button
-                  className="carousel-btn prev-btn"
-                  onClick={() => navigateTheme("prev")}
-                  aria-label="Previous theme"
-                >
-                  ◀
-                </button>
-
-                <div className="current-track">
-                  <div className="track-name">{themeNames[currentTheme]}</div>
-                </div>
-
-                <button
-                  className="carousel-btn next-btn"
-                  onClick={() => navigateTheme("next")}
-                  aria-label="Next theme"
-                >
-                  ▶
-                </button>
               </div>
-            </div>
 
-            {/* Add difficulty settings */}
-            <div className="difficulty-content">
-              <h3 className="audio-section-title">Difficulty</h3>
-              <div className="track-carousel">
-                <button
-                  className="carousel-btn prev-btn"
-                  onClick={() => navigateDifficulty("prev")}
-                  aria-label="Previous difficulty"
-                >
-                  ◀
-                </button>
+              {/* Add difficulty settings */}
+              <div className="difficulty-content">
+                <h3 className="audio-section-title">Difficulty</h3>
+                <div className="track-carousel">
+                  <button
+                    className="carousel-btn prev-btn"
+                    onClick={() => navigateDifficulty("prev")}
+                    aria-label="Previous difficulty"
+                  >
+                    ◀
+                  </button>
 
-                <div className="current-track">
-                  <div className="track-name">
-                    {difficultyNames[currentDifficulty]}
+                  <div className="current-track">
+                    <div className="track-name">
+                      {difficultyNames[currentDifficulty]}
+                    </div>
                   </div>
-                </div>
 
-                <button
-                  className="carousel-btn next-btn"
-                  onClick={() => navigateDifficulty("next")}
-                  aria-label="Next difficulty"
-                >
-                  ▶
-                </button>
+                  <button
+                    className="carousel-btn next-btn"
+                    onClick={() => navigateDifficulty("next")}
+                    aria-label="Next difficulty"
+                  >
+                    ▶
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
+
+      {activeTab === "weather" && <WeatherSettings />}
+
+      {/* {activeTab === "assistant" && <GameAssistant />} */}
 
       <div className="menu-buttons">
         <button
@@ -290,28 +335,28 @@ const CreditsMenu: React.FC = () => (
       <div className="credits-team">
         <div className="credit-person">
           <div className="pixel-avatar jane"></div>
-          <h3 className="credit-name">Jane</h3>
-          <p className="credit-role">Music & Sound Effects</p>
+          <h3 className="credit-name">Aryan</h3>
+          <p className="credit-role">Music & Static management</p>
           <p className="credit-description">
-            Created the chiptune soundtrack and all the retro sound effects
+            Linked useEffect for Audio and made the static pages
           </p>
         </div>
 
         <div className="credit-person">
           <div className="pixel-avatar john"></div>
-          <h3 className="credit-name">John</h3>
+          <h3 className="credit-name">Navdha</h3>
           <p className="credit-role">Asset Design</p>
           <p className="credit-description">
-            Designed all pixel art, textures, and visual elements
+            Designed models and textures and implemented local storage
           </p>
         </div>
 
         <div className="credit-person">
           <div className="pixel-avatar jake"></div>
-          <h3 className="credit-name">Jake</h3>
+          <h3 className="credit-name">Adheesh</h3>
           <p className="credit-role">Gameplay Programming</p>
           <p className="credit-description">
-            Programmed game mechanics and physics
+            Programmed game mechanics and state management
           </p>
         </div>
       </div>
