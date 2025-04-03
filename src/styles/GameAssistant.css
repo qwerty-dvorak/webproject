@@ -1,0 +1,171 @@
+.game-assistant-container {
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  color: #fff;
+  max-width: 800px;
+  margin: 0 auto 20px;
+}
+
+.assistant-title {
+  color: #ff9500;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.assistant-section {
+  margin-bottom: 25px;
+}
+
+.assistant-section h3 {
+  color: #ff9500;
+  border-bottom: 1px solid #ff9500;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.advice-section {
+  background-color: rgba(255, 149, 0, 0.1);
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.advice-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.advice-text {
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.refresh-button {
+  background-color: #ff9500;
+  color: #000;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.refresh-button:hover {
+  background-color: #ffaa33;
+}
+
+.refresh-button:disabled {
+  background-color: #888;
+  cursor: not-allowed;
+}
+
+.tips-category-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.category-tab {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.category-tab:first-child {
+  border-radius: 4px 0 0 4px;
+}
+
+.category-tab:last-child {
+  border-radius: 0 4px 4px 0;
+}
+
+.category-tab.active {
+  background-color: #ff9500;
+  color: #000;
+  font-weight: bold;
+}
+
+.tips-list {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.tip-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #444;
+}
+
+.tip-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.tip-icon {
+  margin-right: 10px;
+  font-size: 20px;
+  color: #ff9500;
+}
+
+.tip-content {
+  line-height: 1.5;
+}
+
+.loading-spinner {
+  text-align: center;
+  padding: 20px;
+  color: #ff9500;
+}
+
+.error-message {
+  background-color: rgba(255, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.retry-button {
+  background-color: #ff9500;
+  color: #000;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.no-tips-message {
+  text-align: center;
+  padding: 20px;
+  color: #888;
+}
+
+@media (max-width: 600px) {
+  .game-assistant-container {
+    padding: 15px;
+  }
+  
+  .category-tab {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+}

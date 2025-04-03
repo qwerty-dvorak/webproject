@@ -1,0 +1,294 @@
+.weather-settings-container {
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 8px;
+  padding: 20px;
+  color: #fff;
+  max-width: 800px;
+  margin: 0 auto 20px;
+}
+
+.settings-title {
+  color: #3498db;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.toggle-section {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: rgba(52, 152, 219, 0.1);
+  border-radius: 6px;
+}
+
+.toggle-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #555;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+  background-color: #3498db;
+}
+
+input:checked + .toggle-slider:before {
+  transform: translateX(26px);
+}
+
+.toggle-description {
+  color: #ccc;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.current-weather {
+  margin-bottom: 15px;
+  padding: 15px;
+  background-color: rgba(52, 152, 219, 0.1);
+  border-radius: 6px;
+}
+
+.current-weather h3 {
+  color: #3498db;
+  border-bottom: 1px solid #3498db;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.weather-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.weather-location {
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.weather-details {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.weather-temp {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.weather-condition {
+  font-size: 18px;
+}
+
+.weather-icon {
+  font-size: 1.5rem;
+  margin-right: 8px;
+}
+
+.weather-temp-condition {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.additional-details {
+  display: flex;
+  gap: 20px;
+  color: #ccc;
+}
+
+.game-effect {
+  margin-top: 10px;
+  padding: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.game-effect h4 {
+  margin: 0 0 5px 0;
+  color: #3498db;
+}
+
+.no-weather {
+  padding: 20px;
+  text-align: center;
+  color: #ccc;
+}
+
+.location-search {
+  padding: 15px;
+  background-color: rgba(52, 152, 219, 0.1);
+  border-radius: 6px;
+}
+
+.location-search h3 {
+  color: #3498db;
+  border-bottom: 1px solid #3498db;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+.search-input {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.search-input input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #555;
+  background-color: #333;
+  color: #fff;
+}
+
+.search-input button {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 0 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-input button:hover {
+  background-color: #2980b9;
+}
+
+.search-input button:disabled {
+  background-color: #888;
+  cursor: not-allowed;
+}
+
+.preset-locations {
+  margin-bottom: 15px;
+}
+
+.preset-locations h4 {
+  margin-bottom: 8px;
+  color: #ccc;
+}
+
+.preset-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.preset-button {
+  background-color: #2c3e50;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.preset-button:hover {
+  background-color: #34495e;
+}
+
+.preset-button:disabled {
+  background-color: #888;
+  cursor: not-allowed;
+}
+
+.location-button {
+  width: 100%;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 15px;
+}
+
+.location-button:hover {
+  background-color: #2980b9;
+}
+
+.location-button:disabled {
+  background-color: #888;
+  cursor: not-allowed;
+}
+
+.error-message {
+  background-color: rgba(231, 76, 60, 0.2);
+  color: #e74c3c;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.loading-indicator {
+  text-align: center;
+  padding: 10px;
+  color: #3498db;
+}
+
+@media (max-width: 600px) {
+  .weather-details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  
+  .additional-details {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .preset-buttons {
+    flex-direction: column;
+  }
+}
